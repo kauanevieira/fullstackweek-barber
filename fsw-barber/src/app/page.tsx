@@ -31,7 +31,8 @@ export default function Home() {
         </div>
 
         {/* AGENDAMENTO */}
-        <Card className="mt-6">
+        <h2 className="uppercase font-bold text-xs text-gray-400 mb-3 mt-6">Agendamentos</h2>
+        <Card>
           <CardContent className="flex justify-between p-0">
             {/* ESQUERDA */}
             <div className="flex flex-col gap-2 py-5 pl-5 w-full">
