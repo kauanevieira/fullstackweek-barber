@@ -6,9 +6,15 @@ import Image from "next/image";
 import { Card, CardContent } from "./_components/ui/card";
 import { Badge } from "./_components/ui/badge";
 import { Avatar, AvatarImage } from "./_components/ui/avatar";
+import { db } from "./_lib/prisma";
+import BarbershopItem from "./_components/barbershop-item";
 
-export default function Home() {
-  return (
+const Home = async () => {
+  // chamar meu banco de dados
+
+  const barbershops = await db.barbershop.findMany({})
+
+  return ( 
     <div>
       {/* header */}
       <Header />
@@ -55,8 +61,17 @@ export default function Home() {
           </CardContent>
         </Card>
 
+        <h2 className="uppercase font-bold text-xs text-gray-400 mb-3 mt-6">Recomendados</h2>
+        <div className="flex gap-4 overflow-auto [&::-webkit-scrollbar]:hidden">
+          {barbershops.map((barbershop) => (
+            <BarbershopItem key={barbershop.id} barbershop={barbershop}/>
+          ))}
+        </div>
+
       </div>
 
     </div>
-  );
+   );
 }
+ 
+export default Home;
