@@ -1,4 +1,4 @@
-import { SearchIcon } from "lucide-react";
+import { EyeIcon, FootprintsIcon, SearchIcon } from "lucide-react";
 import Header from "./_components/header";
 import { Button } from "./_components/ui/button";
 import { Input } from "./_components/ui/input";
@@ -13,6 +13,11 @@ const Home = async () => {
   // chamar meu banco de dados
 
   const barbershops = await db.barbershop.findMany({})
+  const popularBarbershops = await db.barbershop.findMany({
+    orderBy: {
+      name: "desc"
+    }
+  })
 
   return ( 
     <div>
@@ -28,6 +33,30 @@ const Home = async () => {
           <Input placeholder="Faça sua busca..."/>
           <Button>
             <SearchIcon />
+          </Button>
+        </div>
+
+        {/* BUSCA RÁPIDA */}
+        <div className="flex gap-3 mt-6 overflow-x-scroll [&::-webkit-scrollbar]:hidden">
+          <Button className="gap-2" variant="secondary">
+            <Image alt="Cabelo" src="/cabelo.svg" width={16} height={16}/>
+            Cabelo
+          </Button>
+          <Button className="gap-2" variant="secondary">
+            <Image alt="Barba" src="/barba.svg" width={16} height={16}/>
+            Barba
+          </Button>
+          <Button className="gap-2" variant="secondary">
+            <Image alt="Acabamento" src="/acabamento.svg" width={16} height={16}/>
+            Acabamento
+          </Button>
+          <Button className="gap-2" variant="secondary">
+            <FootprintsIcon size={16} />
+            Pezinho
+          </Button>
+          <Button className="gap-2" variant="secondary">
+            <EyeIcon size={16} />
+            Sobrancelha
           </Button>
         </div>
 
@@ -68,7 +97,21 @@ const Home = async () => {
           ))}
         </div>
 
+        <h2 className="uppercase font-bold text-xs text-gray-400 mb-3 mt-6">Populares</h2>
+        <div className="flex gap-4 overflow-auto [&::-webkit-scrollbar]:hidden">
+          {popularBarbershops.map((barbershop) => (
+            <BarbershopItem key={barbershop.id} barbershop={barbershop}/>
+          ))}
+        </div>
       </div>
+
+      <footer>
+        <Card>
+          <CardContent className="px-5 py-6">
+            <p className="text-sm text-gray-400">© 2023 Copyright <span className="font-bold">FSW Barber</span></p>
+          </CardContent>
+        </Card>
+      </footer>
 
     </div>
    );
