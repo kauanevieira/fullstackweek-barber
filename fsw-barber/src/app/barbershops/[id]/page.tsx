@@ -40,7 +40,7 @@ const BarbershopPage = async ({params}: BarbershopPageProps) => {
         </Button>
         <Sheet>
           <SheetTrigger asChild>
-            <Button asChild className="absolute right-4 top-4" size="icon" variant="outline">
+            <Button className="absolute right-4 top-4" size="icon" variant="outline">
               <MenuIcon />
             </Button>
           </SheetTrigger>
